@@ -7,6 +7,8 @@
 IDをコピーするためのクリック動作が不要なため，同種の<strong>Webアプリよりクリック1回分早い</strong>です．  
 2019.12.29現在，WindowsとmacOSに対応しています．
 
+this repo cloned from <https://github.com/bookii/gbf-rapid-search>
+
 ## 使用方法
 
 ```
