@@ -1,0 +1,9 @@
+{
+    "excludes":[{"name":"Twitter Japan", "screen_name":"TwitterJP"}, {"screen_name":"Twitter"}],
+    "shorts":{
+        "goburo": { "level":"120", "name":"ゴッドガード・ブローディア" },
+        "rope": { "level":"120", "name":"エウロペ" },
+        "siva": { "level":"120", "name":"シヴァ" },
+        "gurimu": { "level":"120", "name":"グリームニル" }
+    }
+}

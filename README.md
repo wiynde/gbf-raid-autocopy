@@ -5,17 +5,24 @@
 コマンドラインで動くグラブルTwitter救援検索ツール．  
 指定したマルチバトルの救援依頼ツイートを取得し，参戦IDを自動でクリップボードにコピーします．  
 IDをコピーするためのクリック動作が不要なため，同種の<strong>Webアプリよりクリック1回分早い</strong>です．  
-2018.5.26現在，WindowsとmacOSに対応しています．
+2019.12.29現在，WindowsとmacOSに対応しています．
 
 ## 使用方法
 
 ```
-python search.py level name
+python search.py <level>-<name> [-e] [--help]
+python search.py <short_name> -s [-e] [--help]
 ```
++ `-s, --short`オプションは，[search_ext.json](search_ext.json)の`shorts`に登録したクエストに名前を付け，その名前を指定することで検索を開始します．
+    + ゴブロとかgoburoとか登録しておけば楽になるって感じです．
++ `-e, --exclude`オプションは，[search_ext.json](search_ext.json)の`excludes`に登録した名前またはスクリーンネームを持つアカウントのツイートをコピー対象から外します．
+    + 要するに自分のスクリーンネームを書いておけば，出力には表示されますが，自発したクエストはコピーされないようになります．
+
 ### 例
 
 ```
-python search.py 75 シュヴァリエ・マグナ
+python search.py 120-ゴッドガード・ブローディア
+python search.py goburo -s
 ```
 + 取得したツイートがコマンドラインに表示され，同時に参戦IDがクリップボードにコピーされます．
 + 終了するときは`Ctrl+C`を押してください．
