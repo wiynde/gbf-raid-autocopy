@@ -31,11 +31,11 @@ def parse_command():
 
     argparser = ArgumentParser(usage=usage)
     argparser.add_argument('target', type=str,
-                           help='default:level-name, -s:shortname')
+                            help='default:level-name, -s:shortname')
     argparser.add_argument('-e', '--exclude', action='store_true',
-                           help='exclude specific backup(救援) written in "excludes" of search_ext.json')
+                            help='exclude specific backup(救援) written in "excludes" of search_ext.json')
     argparser.add_argument('-s', '--shorts', action='store_true',
-                           help='exclude specific backup(救援) written in "excludes" of search_ext.json')
+                            help='exclude specific backup(救援) written in "excludes" of search_ext.json')
     return argparser.parse_args()
 
 def parse_boss(shorts, target):
@@ -48,8 +48,12 @@ def parse_boss(shorts, target):
             sys.exit()
     else:
         target_split = target.split('-')
-        boss_level = target_split[0]
-        boss_name = target_split[1]
+        if len(target_split) >= 2:
+            boss_level = target_split[0]
+            boss_name = target_split[1]
+        else:
+            boss_level = ""
+            boss_name = target_split[0]
     return (boss_level, boss_name)
 
 def unsupported_os():
@@ -96,17 +100,29 @@ def print_tweet(tweet):
     # TODO: 文字コード周りの処理をする
     print(tweet.get('text') + '\n', flush=True)
 
+def print_exts():
+    for target in search_exts['shorts']:
+        print(target)
+
 def main():
     os_name = sys.platform
     if os_name != 'win32' and os_name != 'darwin':
         unsupported_os()
 
     args = parse_command()
+
+    if args.target == 'list':
+        print_exts()
+        return
+
     boss_level, boss_name = parse_boss(args.shorts, args.target)
 
     try:
         oauth_session = OAuth1Session(CK, CS, AT, AS)
-        params = {'track': 'Lv%s %s' % (boss_level, boss_name)}
+        if boss_level == "":
+            params = {'track': '%s' % boss_name}
+        else:
+            params = {'track': 'Lv%s %s' % (boss_level, boss_name)}
         req = oauth_session.post(FILTER_URL, params=params, stream=True)
         
         for line in req.iter_lines():
